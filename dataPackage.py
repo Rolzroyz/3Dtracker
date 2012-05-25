@@ -1,5 +1,6 @@
 import numpy as np
 import NiffteGeo as ng
+import Voxel as voxel
 
 def intoPoint(x):
     x = x[:len(x)-1]
@@ -18,7 +19,7 @@ def intoPoint(x):
         elif i == 4:
             voxel.adc = x[i]
         i += 1
-    point = MapVoxeltoXYZ(voxel)
+    point = ng.MapVoxeltoXYZ(voxel)
     return point
 
 def package(x):
