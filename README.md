@@ -1,6 +1,9 @@
 3Dtracker
 =========
 
+NOTE: The currrent files that we have in our master branch are not complete. We need to add Dr. Klays Voxel class to the master brach so that the code
+in this branch will work. (At least I think so anyways)
+
 Group members
 * Ben - Data I/0
 * Robert - Data analysis
