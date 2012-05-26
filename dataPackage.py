@@ -1,5 +1,5 @@
 import numpy as np
-import NiffteGeo as ng
+import NiffteGeoADC as ng
 import Voxel as voxel
 
 def intoPoint(x):
