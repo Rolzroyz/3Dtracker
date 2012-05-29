@@ -8,7 +8,7 @@ def intoPoint(x):
     i = 0
     for num in x:
         x[i] = int(x[i])
-        if i == 0:
+        if   i == 0:
             voxel.volume = x[i]
         elif i == 1:
             voxel.row = x[i]
@@ -31,7 +31,10 @@ def package(x):
             pkg.append([])
             L += 1
         else:
-            pkg[L].append(intoPoint(line))
+            point = intoPoint(line)
+            if point.adc > 3:
+                pkg[L].append(intoPoint(line))
+				
     return pkg
 
 
