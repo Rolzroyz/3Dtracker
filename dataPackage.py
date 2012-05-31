@@ -31,11 +31,7 @@ def package(x):
             pkg.append([])
             L += 1
         else:
-            point = intoPoint(line)
-            if point.adc > 3:
-                pkg[L].append(intoPoint(line))
-
-
+            pkg[L].append(intoPoint(line))
     return pkg
 
 
