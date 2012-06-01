@@ -122,7 +122,33 @@ def run():
     while iii < len(points_fitted_start):
         print "Fit #",iii, points_fitted_start[iii],points_fitted_end[iii]
         iii += 1
-
+    pfs = points_fitted_start
+    pfe = points_fitted_end
+    filenme = 'output' + str(event) + '.txt'
+    FILE = open(filenme,'w')
+    ev = '##### Event ' + str(event) +'\n'
+    FILE.write(ev)
+    sp = ' '
+    nl = '\n'
+    index = 0
+    for i in range(len(event_lists)):
+        if len(event_lists[i]) > 4:
+            tempstr = '####Fit list #' + str(index + 1) + '\n'
+            FILE.write(tempstr)
+            tempstr = '####Fit points: \n'
+            FILE.write(tempstr)
+            tempstr = '###(' + str(pfs[index].x) + ',' + str(pfs[index].y) + ',' + str(pfs[index].z) + ')\n' 
+            FILE.write(tempstr)
+            tempstr = '###(' + str(pfe[index].x) + ',' + str(pfe[index].y) + ',' + str(pfe[index].z) + ')\n'
+            FILE.write(tempstr)
+            tempstr = '#Data!\n'
+            FILE.write(tempstr)
+            for j in range(len(event_lists[i])):
+                dg = str(event_lists[i][j].x) + sp + str(event_lists[i][j].y) + sp + str(event_lists[i][j].z) + sp + str(event_lists[i][j].adc) + nl
+                FILE.write(dg)
+            index += 1
+    f = FILE.close()
+    
     plt.show()
 
 
