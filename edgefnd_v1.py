@@ -525,8 +525,8 @@ def separateData(event, pkg, fileNme):
 		while pnt[1] < 6:
 			#if no points found for a while nudge it
 			if maxCheck > 100:
-				vector[0] += 0.01
-				mveVtr[0] = vector[0]/(pntsInLst - 1)
+				vector[1] += 0.01
+				mveVtr[1] = vector[1]/(pntsInLst - 1)
 			maxCheck+=1
 			
 			for i in range(len(output)):
@@ -657,8 +657,8 @@ def separateData(event, pkg, fileNme):
 		while pnt[2] < 6:
 			#if no points found for a while nudge it
 			if maxCheck > 100:
-				vector[0] += 0.01
-				mveVtr[0] = vector[0]/(pntsInLst - 1)
+				vector[2] += 0.01
+				mveVtr[2] = vector[2]/(pntsInLst - 1)
 			maxCheck+=1
 			for i in range(len(output)):
 				if outputArr[i][6] == 0:
