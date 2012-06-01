@@ -21,7 +21,6 @@ def separateData(event, pkg, fileNme):
 	f = open(fileNme)
 	dataArr = []
 	L = -1
-	point = 0
 	initDir = -1
 	for line in f:
 		if line[0] == '#':
@@ -44,8 +43,8 @@ def separateData(event, pkg, fileNme):
 				elif i == 4:
 					adc = x[i]
 				i += 1
-			dataArr.append(np.array([volume, row, column, bucket, adc, initDir, 0]))
-			point += 1
+			if adc > 4:
+				dataArr.append(np.array([volume, row, column, bucket, adc, initDir, 0]))
 
 	print 'Number of points in list:', len(dataArr)
 	#Go through all the points in the event list and find the extreme points
@@ -352,7 +351,7 @@ def separateData(event, pkg, fileNme):
 		
 		lastPnt = point3
         
-		print 'Index of four closest points:', point1, point2, point3
+		print 'Index of three closest points:', point1, point2, point3
 		vector = np.array([0.0,0.0,0.0])
 		x0 = output[stPnt].x
 		y0 = output[stPnt].y
@@ -391,8 +390,13 @@ def separateData(event, pkg, fileNme):
 		pnt.append(x0)
 		pnt.append(y0)
 		pnt.append(z0)
-		
+		maxCheck = 0
 		while pnt[0] < 6:
+			#if no points found for a while nudge it
+			if maxCheck > 100:
+				vector[0] += 0.01
+				mveVtr[0] = vector[0]/(pntsInLst - 1)
+			maxCheck+=1
 			for i in range(len(output)):
 				if outputArr[i][6] == 0:
 					x = output[i].x
@@ -400,6 +404,7 @@ def separateData(event, pkg, fileNme):
 					z = output[i].z
 					
 					if ((x - pnt[0])**2 + (y - pnt[1])**2 + (z - pnt[2])**2)**(0.5) < maxDistFromLine:
+						maxCheck = 0
 						outputArr[i][6] = 1
 						vector[0] += (x-x0)/(((x0-x)**2+(y0-y)**2+(z0-z)**2)**(0.5))
 						vector[1] += (y-y0)/(((x0-x)**2+(y0-y)**2+(z0-z)**2)**(0.5))
@@ -476,7 +481,7 @@ def separateData(event, pkg, fileNme):
 		
 		lastPnt = point3
         
-		print 'Index of four closest points:', point1, point2, point3
+		print 'Index of three closest points:', point1, point2, point3
 		vector = np.array([0.0,0.0,0.0])
 		x0 = output[stPnt].x
 		y0 = output[stPnt].y
@@ -516,7 +521,14 @@ def separateData(event, pkg, fileNme):
 		pnt.append(y0)
 		pnt.append(z0)
 		
+		maxCheck = 0
 		while pnt[1] < 6:
+			#if no points found for a while nudge it
+			if maxCheck > 100:
+				vector[0] += 0.01
+				mveVtr[0] = vector[0]/(pntsInLst - 1)
+			maxCheck+=1
+			
 			for i in range(len(output)):
 				if outputArr[i][6] == 0:
 					x = output[i].x
@@ -524,6 +536,7 @@ def separateData(event, pkg, fileNme):
 					z = output[i].z
 					
 					if ((x - pnt[0])**2 + (y - pnt[1])**2 + (z - pnt[2])**2)**(0.5) < maxDistFromLine:
+						maxCheck = 0
 						outputArr[i][6] = 1
 						vector[0] += (x-x0)/(((x0-x)**2+(y0-y)**2+(z0-z)**2)**(0.5))
 						vector[1] += (y-y0)/(((x0-x)**2+(y0-y)**2+(z0-z)**2)**(0.5))
@@ -600,7 +613,7 @@ def separateData(event, pkg, fileNme):
 		
 		lastPnt = point3
         
-		print 'Index of four closest points:', point1, point2, point3
+		print 'Index of three closest points:', point1, point2, point3
 		vector = np.array([0.0,0.0,0.0])
 		x0 = output[stPnt].x
 		y0 = output[stPnt].y
@@ -640,7 +653,13 @@ def separateData(event, pkg, fileNme):
 		pnt.append(y0)
 		pnt.append(z0)
 		
+		maxCheck = 0
 		while pnt[2] < 6:
+			#if no points found for a while nudge it
+			if maxCheck > 100:
+				vector[0] += 0.01
+				mveVtr[0] = vector[0]/(pntsInLst - 1)
+			maxCheck+=1
 			for i in range(len(output)):
 				if outputArr[i][6] == 0:
 					x = output[i].x
@@ -648,6 +667,7 @@ def separateData(event, pkg, fileNme):
 					z = output[i].z
 					
 					if ((x - pnt[0])**2 + (y - pnt[1])**2 + (z - pnt[2])**2)**(0.5) < maxDistFromLine:
+						maxCheck = 0
 						outputArr[i][6] = 1
 						vector[0] += (x-x0)/(((x0-x)**2+(y0-y)**2+(z0-z)**2)**(0.5))
 						vector[1] += (y-y0)/(((x0-x)**2+(y0-y)**2+(z0-z)**2)**(0.5))

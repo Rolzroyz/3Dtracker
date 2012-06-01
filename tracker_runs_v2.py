@@ -21,6 +21,8 @@ def run():
     ax1 = fig1.add_subplot(111,projection='3d')
     fig2 = plt.figure(2)
     ax2 = fig2.add_subplot(111,projection='3d')
+    fig3 = plt.figure(3)
+    ax3 = fig3.add_subplot(111,projection='3d')
 
 
 
@@ -28,7 +30,8 @@ def run():
     	x = np.linspace(xo,xn,100) 
     	y = np.linspace(yo,yn,100) 
     	z = np.linspace(zo,zn,100)
-	ax2.plot(x, y, z, c='b')  
+	ax2.plot(x, y, z, c='b', linewidth = 2)
+	ax3.plot(x, y, z, c='b', linewidth = 2)    
 
 
 
@@ -59,18 +62,16 @@ def run():
     i = 0
     points_fitted_start=[]
     points_fitted_end=[]
-    removed_lists=0
+
     for i in range(0,len(event_lists)):			# for each point in event
         if len(event_lists[i]) > 4:
             (A,B) = fl.bestline(event_lists[i],acc=0.01,partition=4,recurse='half')   
             points_fitted_start.append(A)
             points_fitted_end.append(B)
-        else:
-            removed_lists += 1
 
 
     ii=0
-    while ii < len(event_lists)-removed_lists:
+    while ii < len(points_fitted_start):
         fittedline(points_fitted_start[ii].x,points_fitted_start[ii].y,points_fitted_start[ii].z,points_fitted_end[ii].x,points_fitted_end[ii].y,points_fitted_end[ii].z)
         ii += 1
 
@@ -91,11 +92,13 @@ def run():
     ax1.set_title('Event '+str(event))
 
     for q in range(len(event_lists)):
-    	xs.append(event_lists[0][q].x)
-    	ys.append(event_lists[0][q].y)
-    	zs.append(event_lists[0][q].z)
+        for i in range(len(event_lists[q])):
+            xs.append(event_lists[q][i].x)
+            ys.append(event_lists[q][i].y)
+            zs.append(event_lists[q][i].z)
 # plotting these new scatter points
-    ax2.scatter(xm,ym,zm,c='r',marker='o')
+    ax2.scatter(xs,ys,zs,c='k',marker='o')
+    ax3.scatter(xs,ys,zs,c='k',marker='o')
 #ax2.set_xlim(-.01, .01)
 #ax2.set_ylim(-.01, .01)
 #ax2.set_zlim(-.01, .01)
@@ -108,6 +111,7 @@ def run():
     ax2.set_title('Event '+str(event))
 
     print 'Event',event,'\n'
+    print len(xm), len(xs)
     print "x range =",min(xm),",", max(xm) 
     print "y range =",min(ym),",", max(ym) 
     print "z range =",min(zm),",", max(zm) 
