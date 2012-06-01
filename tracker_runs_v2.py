@@ -89,7 +89,7 @@ def run():
     ax1.set_xlabel('X (cm)')
     ax1.set_ylabel('Y (cm)')
     ax1.set_zlabel('Z (cm)')
-    ax1.set_title('Event '+str(event))
+    ax1.set_title('Event '+str(event)+' all data')
 
     for q in range(len(event_lists)):
         for i in range(len(event_lists[q])):
@@ -108,7 +108,8 @@ def run():
     ax2.set_xlabel('X (cm)')
     ax2.set_ylabel('Y (cm)')
     ax2.set_zlabel('Z (cm)')
-    ax2.set_title('Event '+str(event))
+    ax2.set_title('Event '+str(event) + ' fitted')
+    ax3.set_title('Event '+str(event) + ' zoomed')
 
     print 'Event',event,'\n'
     print len(xm), len(xs)
